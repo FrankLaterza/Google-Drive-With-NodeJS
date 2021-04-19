@@ -31,7 +31,7 @@ let missingId = [];
 /// **** change this to your local file path! ****** ///
 
 // put local folder path
-const localFilePath = 'C:/Users/frank/Documents/CheggBOT_V3/Memes/'
+const localFilePath = 'C:/Users/frank/Documents/CheggBOT_V3/Memes'
 
 // put id of foler
 const GDfolderId = '"1RpR2CQ0_2eFWMj89raNRJ9QYoyBgCIZK"';
@@ -249,7 +249,7 @@ function getFile(drive) {
             .then(res => {
                 return new Promise((resolve, reject) => {
 
-                    const filePath = (localFilePath + element.name);
+                    const filePath = (localFilePath + '/' + element.name);
                     console.log(`writing to ${filePath}`);
                     const dest = fs.createWriteStream(filePath);
                     let progress = 0;
