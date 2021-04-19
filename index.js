@@ -28,18 +28,13 @@ let googleGetInfo = []
 let missingId = [];
 
 
-// const missingId = [
-//     { name: "rock", id: "5446" },
-//     { name: "well", id: "test2" },
-//     { name: "butt", id: "test3" },
-//     { name: "licker", id: "test4" },
-//     { name: "bruh", id: "test5" },
-//     { name: "cars", id: "test5" },
-//     { name: "face", id: "test8" },
-//     { name: "face10", id: "test9" },
-//     { name: "loid", id: "test10" },
-//     { name: "camel", id: "test11" }
-// ];
+/// **** change this to your local file path! ****** ///
+
+// put local folder path
+const localFilePath = 'C:/Users/frank/Documents/CheggBOT_V3/Memes/'
+
+// put id of foler
+const GDfolderId = '"1RpR2CQ0_2eFWMj89raNRJ9QYoyBgCIZK"';
 
 
 
@@ -47,11 +42,18 @@ let missingId = [];
 fs.readFile('credentials.json', (err, content) => {
     if (err) return console.log('Error loading client secret file:', err);
     // Authorize a client with credentials, then call the Google Drive API.
-    //authorize(JSON.parse(content), listFiles);
+
+
+
+
+    //THIS RUNS MAIN THE PROCESS //
     authorize(JSON.parse(content), runAll);
 
-    //authorize(JSON.parse(content), downlaodMissingFiles);
-    //authorize(JSON.parse(content), getFile)
+    // **** UNCOMMENT THIS LINE TO GET TO LIST THE FOLDER IDS ****** //
+    //authorize(JSON.parse(content), listFolderIds);
+
+
+
 
 });
 
@@ -115,17 +117,52 @@ function runAll(auth) {
     getListMemes(drive, '');
 
 
+}
+
+function listFolderIds(auth, pageToken) {
+
+    // To restrict the search to folders, use the query string to set the MIME type to q: mimeType = 'application/vnd.google-apps.folder'
+    const drive = google.drive({ version: 'v3', auth });
+
+    drive.files.list({
+        corpora: 'user',
+        pageSize: 10,
+        //q: GDfolderId + ' in parents',
+        q: "mimeType = 'application/vnd.google-apps.folder'", //get folder ids
+        pageToken: pageToken ? pageToken : '',
+        fields: 'nextPageToken, files(name, id)',
+    }, (err, res) => {
+        if (err) return console.log('The API returned an error: ' + err);
+        const files = res.data.files;
+        if (files.length) {
+            //console.log('Files:');
+            processList(files);
+            if (res.data.nextPageToken) {
+                getListMemes(drive, res.data.nextPageToken);
+                console.log(googleGetInfo);
+            } else {
+
+                readFilesMemes(localFilePath)
+                mergeByProperty(FileGetInfo, googleGetInfo, 'name');
+                getFile(drive);
+
+            }
+        } else {
+            console.log('No files found.');
+        }
+    });
 
 }
 
-/// meme folder data:  memes|1RpR2CQ0_2eFWMj89raNRJ9QYoyBgCIZK
+
+
 
 function getListMemes(drive, pageToken) {
 
     drive.files.list({
         corpora: 'user',
         pageSize: 10,
-        q: '"1RpR2CQ0_2eFWMj89raNRJ9QYoyBgCIZK" in parents',
+        q: GDfolderId + ' in parents',
         //q: "mimeType = 'application/vnd.google-apps.folder'", //get folder ids
         pageToken: pageToken ? pageToken : '',
         fields: 'nextPageToken, files(name, id)',
@@ -138,29 +175,15 @@ function getListMemes(drive, pageToken) {
             if (res.data.nextPageToken) {
                 getListMemes(drive, res.data.nextPageToken);
                 console.log(googleGetInfo);
-
-
             } else {
-                //console.log(JSON.stringify(googleGetInfo))
 
-
-                readFilesMemes("C:/Users/frank/Documents/CheggBOT_V3/Memes")
-                console.log("done with function");
-
+                readFilesMemes(localFilePath)
                 mergeByProperty(FileGetInfo, googleGetInfo, 'name');
-
                 getFile(drive);
 
             }
-
-            // files.map((file) => {
-            //     console.log(`${file.name} (${file.id})`);
-            // });
         } else {
             console.log('No files found.');
-
-
-
         }
     });
 
@@ -226,7 +249,7 @@ function getFile(drive) {
             .then(res => {
                 return new Promise((resolve, reject) => {
 
-                    const filePath = ('C:/Users/frank/Documents/CheggBOT_V3/Memes/' + element.name);
+                    const filePath = (localFilePath + element.name);
                     console.log(`writing to ${filePath}`);
                     const dest = fs.createWriteStream(filePath);
                     let progress = 0;
