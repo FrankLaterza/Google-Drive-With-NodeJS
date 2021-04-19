@@ -119,44 +119,6 @@ function runAll(auth) {
 
 }
 
-function listFolderIds(auth, pageToken) {
-
-    // To restrict the search to folders, use the query string to set the MIME type to q: mimeType = 'application/vnd.google-apps.folder'
-    const drive = google.drive({ version: 'v3', auth });
-
-    drive.files.list({
-        corpora: 'user',
-        pageSize: 10,
-        //q: GDfolderId + ' in parents',
-        q: "mimeType = 'application/vnd.google-apps.folder'", //get folder ids
-        pageToken: pageToken ? pageToken : '',
-        fields: 'nextPageToken, files(name, id)',
-    }, (err, res) => {
-        if (err) return console.log('The API returned an error: ' + err);
-        const files = res.data.files;
-        if (files.length) {
-            //console.log('Files:');
-            processList(files);
-            if (res.data.nextPageToken) {
-                getListMemes(drive, res.data.nextPageToken);
-                console.log(googleGetInfo);
-            } else {
-
-                readFilesMemes(localFilePath)
-                mergeByProperty(FileGetInfo, googleGetInfo, 'name');
-                getFile(drive);
-
-            }
-        } else {
-            console.log('No files found.');
-        }
-    });
-
-}
-
-
-
-
 function getListMemes(drive, pageToken) {
 
     drive.files.list({
