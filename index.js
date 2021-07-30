@@ -33,8 +33,8 @@ let missingId = [];
 // put local folder path
 const localFilePath = 'YOUR_FOLDER_PATH_HERE'
 
-// put id of foler
-const GDfolderId = '"1RpR2CQ0_2eFWMj89raNRJ9QYoyBgCIZK"';
+// put id of foler // non importaint
+const GDfolderId = '"1RpR2CQ0_2eFWMj89raNRJ9QYoyBgCIZK`"';
 
 
 
