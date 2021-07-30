@@ -1,4 +1,4 @@
-# Google Drive Compare
+# Google Drive Api with node
 
 This project was created to work with Google Drive API. The goal of the project was to update a local file with a folder from google drive. I am sharing this project with the world because it took me longer than I'd like to admit. These steps will be brief and will not go in-depth. The most difficult part was using the API in node js. Setting up the Google Drive API has many tutorials already, but I found nothing on this specific task. 
 
