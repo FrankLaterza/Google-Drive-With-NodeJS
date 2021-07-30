@@ -13,7 +13,7 @@ Once you get all node dependencies, follow this tutorial for setting up your goo
 
 #### Getting Token
 
-Now you will need to get your token. First, create an empty file called ``token.json``. Then try running the script how it is. You may get an error claiming that it cannot read token.json so make sure to add ``{}`` inside ``token.JSON file``. If that doesn't work, try uncommenting line 71 in ``index.js``. This will ignore the checking there is already a key.
+Now you will need to get your token. First, create an empty file called ``token.json``. Then try running the script how it is. You may get an error claiming that it cannot read token.json so make sure to add ``{}`` inside ``token.JSON file``. If that doesn't work, try uncommenting line 71 in ``index.js``. This will ignore checking if is already a key.
 
 
 #### Get Folder Id
