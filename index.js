@@ -31,10 +31,10 @@ let missingId = [];
 /// **** change this to your local file path! ****** ///
 
 // put local folder path
-const localFilePath = 'YOUR_FOLDER_PATH_HERE'
+const localFilePath = 'C:/your/folder/path/goes/here'
 
 // put id of foler // non importaint
-const GDfolderId = '"1RpR2CQ0_2eFWMj89raNRJ9QYoyBgCIZK`"';
+const GDfolderId = '"your folder id here`"';
 
 
 
