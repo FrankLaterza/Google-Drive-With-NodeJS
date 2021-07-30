@@ -31,7 +31,7 @@ let missingId = [];
 /// **** change this to your local file path! ****** ///
 
 // put local folder path
-const localFilePath = 'C:/Users/frank/Documents/CheggBOT_V3/Memes'
+const localFilePath = 'YOUR_FOLDER_PATH_HERE'
 
 // put id of foler
 const GDfolderId = '"1RpR2CQ0_2eFWMj89raNRJ9QYoyBgCIZK"';
