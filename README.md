@@ -23,7 +23,7 @@ Once you get your token you will need to get the file id of the Google Drive fol
 
 #### Comparing
 
-We are almost there! Now use that file and set it up like this ``GDfolderId = 'your folder id here`` on line 34. Then set up the file path like this ``const local file path = 'C:/Users/frank/Documents/CheggBOT_V3/Memes`` on line 37.
+We are almost there! Now use that file and set it up like this ``GDfolderId = 'your folder id here`` on line 34. Then set up the file path like this ``const local file path = 'C:/your/folder/path/goes/here`` on line 37.
  
  
  
